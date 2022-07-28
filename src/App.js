@@ -1,10 +1,14 @@
 import Button from "./Button";
 import styles from "./App.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [counter, setValue] = useState(0);
   const onClick = () => setValue((prev) => prev + 1);
+  console.log("i run all the time");
+  useEffect(() => { // 익명함수
+    console.log("CALL THE API..."); //단 한번만 실행하고 싶은 코드
+  }, []);
   return (
     <div>
       <h1 className={styles.title}>{counter}</h1>
