@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import userEvent from "@testing-library/user-event";
 
 function Hello(){
-  function byFn(){
-    console.log("bye :(");
-  }
-  function hiFn(){
-    console.log("created :)");
-    return byFn;
-  }
-  useEffect(hiFn, []);
+  useEffect(()=>{
+    console.log("hi :)");
+    return ()=>{
+      console.log("bye :(");
+    }
+  }, []);
   return <h1>Hello</h1>;
 }
 
