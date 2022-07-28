@@ -1,27 +1,29 @@
-import Button from "./Button";
-import styles from "./App.module.css";
 import { useEffect, useState } from "react";
-import userEvent from "@testing-library/user-event";
-
-function Hello(){
-  useEffect(()=>{
-    console.log("hi :)");
-    return ()=>{
-      console.log("bye :(");
-    }
-  }, []);
-  return <h1>Hello</h1>;
-}
 
 function App() {
-  const [showing, setShowing] =useState(false);
-  const onClick = () => setShowing((prev) => !prev);
+  const [toDo, setToDO] = useState(""); //input 컨트롤
+  const [toDos, setToDos] = useState([]);
+  const onChange = (event) => setToDO(event.target.value);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if(toDo === ""){
+      return; // 아무것도 적지 않으면 함수를 실행 시키지 않음
+    }
+    setToDO(""); // input값을 비워줌
+    setToDos(currentArray => [toDo, ...currentArray]); //새로운 state와 기존의 state를 더해서 새로운 array를 만들어 리턴해줌
+  };
   return (
     <div>
-      {showing ? <Hello /> : null}
-      <button onClick={onClick}>
-        {showing ? "Hide" : "Show"}
-      </button>
+      <h1>My To toDos ({toDos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={onChange}
+          value={toDo}
+          type="text"
+          placeholder="Write your to do..."
+        />
+        <button>Add To Do</button>
+      </form> 
     </div>
   );
 }
