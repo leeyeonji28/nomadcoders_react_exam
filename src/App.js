@@ -2,52 +2,47 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [coins, setCoins] = useState([]);
-  const [selCoins, setSelCoins] = useState("0");
-  const [result, setResult] = useState("0");
-
-  const onChange = (event) => {
-    setSelCoins(event.target.value);
+  const [movies, setMovies] = useState([]);
+  const getMovies = async () => {
+    const json = await (
+      await fetch(
+        `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
+      )
+    ).json();
+    setMovies(json.data.movies);
+    setLoading(false);
   };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const priceUSD = event.target[0].value;
-    calculate(priceUSD);
-  };
-
-  const calculate = (priceUSD) => {
-    setResult(priceUSD * selCoins);
-  };
-
   useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/tickers")
-      .then((response) => response.json())
-      .then((json) => {
-        setCoins(json);
-        setLoading(false);
-      });
+    getMovies();
+    // fetch(
+    //   `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
+    // )
+    //   .then((response) => response.json())
+    //   .then((json) => {
+    //     setMovies(json.data.movies);
+    //     setLoading(false);
+    //   });
   }, []);
-
   return (
     <div>
-      <h1>The Coins! {loading ? "" : `(${coins.length}개의 Coins)`}</h1>
       {loading ? (
-        <strong>Loading...</strong>
+        <h1>Loading...</h1>
       ) : (
-        <select onChange={onChange}>
-          {coins.map((coin, index) => (
-            <option key={index} value={coin.quotes.USD.price}>
-              {coin.name} ({coin.symbol}): {coin.quotes.USD.price} USD
-            </option>
+        <div>
+          {movies.map((movie) => (
+            <div key={movie.id}>
+              <img src={movie.medium_cover_image} />
+              <h2>{movie.title}</h2>
+              <p>{movie.summary}</p>
+              <ul>
+                {movie.genres.map((g) => (
+                  <li key={g}>{g}</li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </select>
+        </div>
       )}
-      <form onSubmit={onSubmit}>
-        <input type="number" placeholder="write us dollars" />
-        <button>Change Coins</button>
-      </form>
-      <p>you can change {result} coins!</p>
     </div>
   );
 }
