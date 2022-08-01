@@ -42,6 +42,7 @@ function Home() {
               summary={movie.summary}
               genres={movie.genres}
               year={movie.year}
+              star={movie.rating}
             />
           ))}
         </div>
