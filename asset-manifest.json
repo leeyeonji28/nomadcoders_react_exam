@@ -1,10 +1,13 @@
 {
   "files": {
-    "main.js": "/nomadcoders_react_exam.git/static/js/main.479aa7a8.js",
-    "index.html": "/nomadcoders_react_exam.git/index.html",
-    "main.479aa7a8.js.map": "/nomadcoders_react_exam.git/static/js/main.479aa7a8.js.map"
+    "main.css": "/nomadcoders_react_exam/static/css/main.fc4a8d37.css",
+    "main.js": "/nomadcoders_react_exam/static/js/main.be8cc8fa.js",
+    "index.html": "/nomadcoders_react_exam/index.html",
+    "main.fc4a8d37.css.map": "/nomadcoders_react_exam/static/css/main.fc4a8d37.css.map",
+    "main.be8cc8fa.js.map": "/nomadcoders_react_exam/static/js/main.be8cc8fa.js.map"
   },
   "entrypoints": [
-    "static/js/main.479aa7a8.js"
+    "static/css/main.fc4a8d37.css",
+    "static/js/main.be8cc8fa.js"
   ]
 }
